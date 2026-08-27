@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import questionsData from "./generated/questions.json";
 import { Equation, VectorEquation } from "./components/Chemistry";
 import { Rational, ONE, calculateDeltaH, nextHint, parseDeltaH, parseReaction, proportionalFactor, reactionVector, roundRational, sumReactions, vectorsEqual, type GameQuestion, type ReactionState } from "./chemistry/engine";
-import { achievementUnlocked, evaluateExamSubmission, examStarsFor, formatTime, initialPerformance, initialStates, pickQuestions, recordKey, solutionStates, starsFor, targetOrder, type Mode, type Performance, type Setup } from "./game";
+import { achievementUnlocked, cancellationTiming, controlsLocked, evaluateExamSubmission, examStarsFor, formatTime, initialPerformance, initialStates, newCancellationEvents, nextCancellationPhase, pickQuestions, recordKey, solutionStates, starsFor, targetOrder, type CancellationEvent, type CancellationPhase, type Mode, type Performance, type Setup } from "./game";
 
 const allQuestions = questionsData as GameQuestion[];
 type Screen = "home" | "play" | "summary";
@@ -39,6 +39,7 @@ export default function App() {
   const [bestStreak, setBestStreak] = useState(0);
   const [muted, setMuted] = useState(() => localStorage.getItem("hess-flipper:muted") === "true");
   const [combo, setCombo] = useState(0);
+  const [cancellation, setCancellation] = useState<{ phase: CancellationPhase; events: CancellationEvent[] }>({ phase: "idle", events: [] });
   const [elapsed, setElapsed] = useState(0);
   const [replayReturnPhase, setReplayReturnPhase] = useState<"result" | "skipped">("result");
   const [replayStep, setReplayStep] = useState(0);
@@ -60,29 +61,46 @@ export default function App() {
     return () => clearInterval(timer);
   }, [screen, setup.timeAttack]);
   useEffect(() => {
-    if (setup.mode === "Puzzle" && exact && phase === "working") {
+    if (setup.mode === "Puzzle" && exact && phase === "working" && cancellation.phase === "idle") {
       sound("success", muted);
       setPhase("result");
     }
-  }, [exact, phase, setup.mode, muted]);
+  }, [exact, phase, setup.mode, muted, cancellation.phase]);
+  useEffect(() => {
+    if (cancellation.phase === "idle") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timing = cancellationTiming(cancellation.events.length, reduced);
+    const timers: number[] = [];
+    if (cancellation.phase === "cancelling") {
+      timing.burstAt.forEach((delay) => timers.push(window.setTimeout(() => sound("cancel", muted), delay)));
+      timers.push(window.setTimeout(() => setCancellation((value) => ({ ...value, phase: "reflow" })), timing.reflowAt));
+    } else {
+      const delay = cancellation.phase === "reflow" ? (reduced ? 100 : 160) : cancellation.phase === "combo" ? (reduced ? 300 : 650) : (reduced ? 100 : 160);
+      if (cancellation.phase === "combo") setCombo(cancellation.events.length);
+      timers.push(window.setTimeout(() => {
+        const next = nextCancellationPhase(cancellation.phase, cancellation.events.length);
+        if (next !== "combo") setCombo(0);
+        setCancellation((value) => ({ phase: next, events: next === "idle" ? [] : value.events }));
+      }, delay));
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [cancellation.phase, cancellation.events.length, muted]);
   useEffect(() => () => { if (replayTimer.current) clearTimeout(replayTimer.current); }, []);
 
   const start = () => {
     const selected = pickQuestions(allQuestions, setup);
     setRun(selected); setIndex(0); setStates(initialStates(selected[0].reactions.length)); setUndo([]);
-    setPerformance(initialPerformance()); setOutcomes([]); setStreak(0); setBestStreak(0); setPhase("working"); setHint("");
+    setPerformance(initialPerformance()); setOutcomes([]); setStreak(0); setBestStreak(0); setPhase("working"); setHint(""); setCancellation({ phase: "idle", events: [] }); setCombo(0);
     startedAt.current = Date.now(); setElapsed(0); setScreen("play");
   };
 
   const mutate = (next: ReactionState[], countMove = true, silent = false) => {
-    if (phase !== "working" && phase !== "replay") return;
+    if ((phase !== "working" && phase !== "replay") || controlsLocked(cancellation.phase)) return;
     const changed = next.some((s, i) => s.flipped !== states[i]?.flipped || !s.scale.eq(states[i]?.scale ?? ONE));
     if (!changed) return;
     if (phase === "working") setUndo((history) => [...history, states]);
-    const beforeKeys = new Set(current.keys());
-    const nextVector = sumReactions(parsedReactions, next);
-    const cancelled = [...beforeKeys].filter((key) => !nextVector.has(key)).length;
-    if (!silent && cancelled) { setCombo(cancelled); sound("cancel", muted); window.setTimeout(() => setCombo(0), 650); }
+    const events = silent ? [] : newCancellationEvents(parsedReactions, states, next);
+    if (events.length) setCancellation({ phase: "cancelling", events });
     else sound("tap", muted);
     setStates(next);
     if (countMove && phase === "working") setPerformance((p) => ({ ...p, moves: p.moves + 1 }));
@@ -107,7 +125,7 @@ export default function App() {
       setScreen("summary"); return;
     }
     const next = run[index + 1]; setIndex(index + 1); setStates(initialStates(next.reactions.length)); setUndo([]);
-    setPerformance(initialPerformance()); setPhase("working"); setHint(""); setExamInput(""); setExamError("");
+    setPerformance(initialPerformance()); setPhase("working"); setHint(""); setExamInput(""); setExamError(""); setCancellation({ phase: "idle", events: [] }); setCombo(0);
   };
 
   const submitExam = () => {
@@ -147,13 +165,13 @@ export default function App() {
 
   return <main className="game"><header className="game-header"><button className="brand-button" onClick={() => setScreen("home")} aria-label="Exit run">HF<span>Hess Flipper</span></button><div className="run-meta"><span>Question {index + 1} / {run.length}</span><span aria-label={`${streak} perfect streak`}>◆ {streak}</span>{setup.timeAttack && <span>{formatTime(elapsed)}</span>}</div><button className="icon-button" onClick={() => setMuted(!muted)} aria-label={muted ? "Unmute" : "Mute"}>{muted ? "SOUND OFF" : "SOUND ON"}</button></header>
     <section className="target-bar"><div className="section-label">TARGET</div><Equation reaction={question.target} /></section>
-    <div className="game-grid"><section className="givens"><div className="section-heading"><div><span className="section-label">GIVEN REACTIONS</span><h2>Build the target</h2></div><div className="utility"><button disabled={!undo.length || phase !== "working"} onClick={() => { const previous = undo.at(-1)!; setStates(previous); setUndo((h) => h.slice(0, -1)); }}>UNDO</button><button disabled={phase !== "working"} onClick={() => { setUndo((h) => [...h, states]); setStates(initialStates(states.length)); setPerformance((p) => ({ ...p, moves: p.moves + 1 })); setHint(""); }}>RESET</button></div></div>
-      {question.reactions.map((item, i) => <ReactionRow key={item.reactionNo} item={item} state={states[i]} disabled={phase !== "working"} onFlip={() => { const copy = states.map((s) => ({ ...s })); copy[i].flipped = !copy[i].flipped; mutate(copy); }} onScale={(scale) => { const copy = states.map((s) => ({ ...s })); copy[i].scale = scale; mutate(copy); }} />)}
-      {phase === "working" && <div className="assist"><button onClick={() => { setHint(nextHint(states, question.solution.map(Rational.parse))); setPerformance((p) => ({ ...p, hintUsed: true })); }}>HINT</button><button onClick={() => { setPerformance((p) => ({ ...p, skipped: true })); setPhase("skipped"); setStreak(0); }}>SKIP</button></div>}
+    <div className="game-grid"><section className="givens"><div className="section-heading"><div><span className="section-label">GIVEN REACTIONS</span><h2>Build the target</h2></div><div className="utility"><button disabled={!undo.length || phase !== "working" || controlsLocked(cancellation.phase)} onClick={() => { const previous = undo.at(-1)!; setStates(previous); setUndo((h) => h.slice(0, -1)); }}>UNDO</button><button disabled={phase !== "working" || controlsLocked(cancellation.phase)} onClick={() => { setUndo((h) => [...h, states]); setStates(initialStates(states.length)); setPerformance((p) => ({ ...p, moves: p.moves + 1 })); setHint(""); }}>RESET</button></div></div>
+      {question.reactions.map((item, i) => <ReactionRow key={item.reactionNo} item={item} state={states[i]} disabled={phase !== "working" || controlsLocked(cancellation.phase)} onFlip={() => { const copy = states.map((s) => ({ ...s })); copy[i].flipped = !copy[i].flipped; mutate(copy); }} onScale={(scale) => { const copy = states.map((s) => ({ ...s })); copy[i].scale = scale; mutate(copy); }} />)}
+      {phase === "working" && <div className="assist"><button disabled={controlsLocked(cancellation.phase)} onClick={() => { setHint(nextHint(states, question.solution.map(Rational.parse))); setPerformance((p) => ({ ...p, hintUsed: true })); }}>HINT</button><button disabled={controlsLocked(cancellation.phase)} onClick={() => { setPerformance((p) => ({ ...p, skipped: true })); setPhase("skipped"); setStreak(0); }}>SKIP</button></div>}
       {hint && <p className="hint"><span>HINT</span>{hint}</p>}
     </section>
-    <aside className="result-panel"><span className="section-label">CURRENT RESULT</span><div className={`current-equation ${combo ? "cancelling" : ""}`}><VectorEquation vector={current} order={targetOrder(question)} /></div>{combo > 1 && <div className="combo">COMBO ×{combo}</div>}
-      {proportion && !proportion.eq(ONE) && <div className="proportion"><strong>✓ REACTION PROPORTION MATCHED</strong><span>Current result is ×{proportion.toString()} of the target.</span></div>}
+    <aside className="result-panel"><span className="section-label">CURRENT RESULT</span><div className={`current-equation cancellation-stage phase-${cancellation.phase}`} aria-live="polite"><VectorEquation vector={current} order={targetOrder(question)} cancellation={cancellation.phase === "idle" ? undefined : cancellation} /></div>{combo > 1 && <div className="combo">COMBO ×{combo}</div>}
+      {cancellation.phase === "idle" && proportion && !proportion.eq(ONE) && <div className="proportion"><strong>✓ REACTION PROPORTION MATCHED</strong><span>Current result is ×{proportion.toString()} of the target.</span></div>}
       {(phase === "result" || phase === "enthalpy") && <Success question={question} mode={setup.mode} phase={phase} input={examInput} setInput={setExamInput} error={examError} submit={submitExam} performance={performance} next={() => complete()} />}
       {phase === "skipped" && <div className="completion"><p className="eyebrow">QUESTION SKIPPED</p><div className="stars">☆☆☆</div><p>0 stars</p><div className="stack"><button onClick={() => replay()}>SHOW OPTIMAL SOLUTION</button><button className="primary" onClick={() => complete(true)}>NEXT</button></div></div>}
       {phase === "replay" && <div className="completion worked-summary"><p className="eyebrow">{replayStep ? `MOVE ${replayStep} / ${question.optimalMoves}` : "WORKED SOLUTION"}</p><h3>Optimal Solution · {question.optimalMoves} moves</h3><ol>{question.solution.flatMap((raw, i) => { const v = Rational.parse(raw); const ops = []; if (v.n < 0n) ops.push(`Reaction ${i + 1} → FLIP`); if (!v.abs().eq(ONE)) ops.push(`Reaction ${i + 1} → SCALE ×${v.abs()}`); return ops; }).map((op) => <li key={op}>{op}</li>)}</ol><div className="calculation"><span>ΔH = {enthalpyCalculation(question)}</span><strong>ΔH = {question.finalDeltaH} kJ mol⁻¹</strong></div><div className="stack"><button onClick={() => replay()}>REPLAY</button>{setup.mode === "Exam" && <button onClick={() => setPhase(replayReturnPhase)}>BACK TO RESULT</button>}<button className="primary" onClick={() => complete(setup.mode === "Exam" ? replayReturnPhase === "skipped" : true)}>NEXT</button></div></div>}
