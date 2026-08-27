@@ -7,7 +7,7 @@ import { achievementUnlocked, cancellationTiming, controlsLocked, evaluateExamSu
 const allQuestions = questionsData as GameQuestion[];
 type Screen = "home" | "play" | "summary";
 type Phase = "working" | "enthalpy" | "result" | "skipped" | "replay";
-interface Outcome { id: string; stars: number; moves: number; optimal: number; attempts: number; skipped: boolean }
+export interface Outcome { id: string; stars: number; moves: number; optimal: number; attempts: number; skipped: boolean }
 
 function sound(kind: "tap" | "cancel" | "success" | "stars", muted: boolean) {
   if (muted) return;
@@ -155,10 +155,8 @@ export default function App() {
 
   if (screen === "home") return <Home setup={setup} setSetup={setSetup} start={start} muted={muted} setMuted={setMuted} />;
   if (screen === "summary") {
-    const totalStars = outcomes.reduce((sum, item) => sum + item.stars, 0);
     const pb = setup.timeAttack ? Number(localStorage.getItem(recordKey(setup))) : 0;
-    const elite = setup.mode === "Exam" && setup.difficulty === "Hard" && setup.length === 10 && totalStars === 30;
-    return <main className="summary shell"><p className="eyebrow">RUN COMPLETE</p><h1>{elite ? "HESS MASTERY" : "Run completed"}</h1>{elite && <p className="achievement">◆ Perfect 30 / 30 — Exam · Hard · 10 Questions</p>}<div className="summary-score"><strong>{totalStars}</strong><span>/ {run.length * 3} stars</span></div><p>{setup.difficulty} · {setup.mode} · {run.length} Questions</p><p>Best perfect streak: {bestStreak}</p>{setup.timeAttack && <p>Total Time: {formatTime(elapsed)}{elapsed === pb ? " · Personal Best" : ""}</p>}<div className="result-list">{outcomes.map((o, i) => <div key={o.id}><span>{i + 1}. {o.id}</span><span>{"★".repeat(o.stars)}{"☆".repeat(3 - o.stars)}</span><small>{o.skipped ? "Skipped" : setup.mode === "Exam" ? `Solved in ${o.attempts} attempt${o.attempts === 1 ? "" : "s"}` : `${o.moves} moves · Optimal ${o.optimal}`}</small></div>)}</div><button className="primary" onClick={() => setScreen("home")}>NEW RUN</button></main>;
+    return <RunSummary setup={setup} runLength={run.length} outcomes={outcomes} bestStreak={bestStreak} elapsed={elapsed} personalBest={pb} newRun={() => setScreen("home")} />;
   }
 
   if (setup.mode === "Exam" && phase !== "replay") return <ExamQuestionScreen question={question} index={index} runLength={run.length} streak={streak} elapsed={elapsed} timeAttack={setup.timeAttack} muted={muted} setMuted={setMuted} input={examInput} setInput={(value) => { setExamInput(value); if (examError) setExamError(""); }} error={examError} phase={phase} performance={performance} submit={submitExam} skip={() => { setPerformance((p) => ({ ...p, skipped: true })); setPhase("skipped"); setStreak(0); setExamError(""); }} viewWorked={() => replay()} next={() => complete(phase === "skipped")} exit={() => setScreen("home")} />;
@@ -176,6 +174,12 @@ export default function App() {
       {phase === "skipped" && <div className="completion"><p className="eyebrow">QUESTION SKIPPED</p><div className="stars">☆☆☆</div><p>0 stars</p><div className="stack"><button onClick={() => replay()}>SHOW OPTIMAL SOLUTION</button><button className="primary" onClick={() => complete(true)}>NEXT</button></div></div>}
       {phase === "replay" && <div className="completion worked-summary"><p className="eyebrow">{replayStep ? `MOVE ${replayStep} / ${question.optimalMoves}` : "WORKED SOLUTION"}</p><h3>Optimal Solution · {question.optimalMoves} moves</h3><ol>{question.solution.flatMap((raw, i) => { const v = Rational.parse(raw); const ops = []; if (v.n < 0n) ops.push(`Reaction ${i + 1} → FLIP`); if (!v.abs().eq(ONE)) ops.push(`Reaction ${i + 1} → SCALE ×${v.abs()}`); return ops; }).map((op) => <li key={op}>{op}</li>)}</ol><div className="calculation"><span>ΔH = {enthalpyCalculation(question)}</span><strong>ΔH = {question.finalDeltaH} kJ mol⁻¹</strong></div><div className="stack"><button onClick={() => replay()}>REPLAY</button>{setup.mode === "Exam" && <button onClick={() => setPhase(replayReturnPhase)}>BACK TO RESULT</button>}<button className="primary" onClick={() => complete(setup.mode === "Exam" ? replayReturnPhase === "skipped" : true)}>NEXT</button></div></div>}
     </aside></div></main>;
+}
+
+export function RunSummary({ setup, runLength, outcomes, bestStreak, elapsed, personalBest, newRun }: { setup: Setup; runLength: number; outcomes: Outcome[]; bestStreak: number; elapsed: number; personalBest: number; newRun: () => void }) {
+  const totalStars = outcomes.reduce((sum, item) => sum + item.stars, 0);
+  const elite = setup.mode === "Exam" && setup.difficulty === "Hard" && setup.length === 10 && totalStars === 30;
+  return <main className="summary shell"><p className="eyebrow">RUN COMPLETE</p><h1>{elite ? "HESS MASTERY" : "Run completed"}</h1>{elite && <p className="achievement">◆ Perfect 30 / 30 — Exam · Hard · 10 Questions</p>}<div className="summary-score"><strong>{totalStars}</strong><span>/ {runLength * 3} stars</span></div><p>{setup.difficulty} · {setup.mode} · {runLength} Questions</p><p>Best perfect streak: {bestStreak}</p>{setup.timeAttack && <p>Total Time: {formatTime(elapsed)}{elapsed === personalBest ? " · Personal Best" : ""}</p>}<div className="result-list">{outcomes.map((o, i) => <div key={o.id}><span>QUESTION {i + 1}</span><span>{"★".repeat(o.stars)}{"☆".repeat(3 - o.stars)}</span><small>{o.skipped ? "Skipped" : setup.mode === "Exam" ? `Solved in ${o.attempts} attempt${o.attempts === 1 ? "" : "s"}` : `${o.moves} ${o.moves === 1 ? "move" : "moves"} · Optimal ${o.optimal}`}</small></div>)}</div><button className="primary" onClick={newRun}>NEW RUN</button></main>;
 }
 
 export function ExamQuestionScreen({ question, index, runLength, streak, elapsed, timeAttack, muted, setMuted, input, setInput, error, phase, performance, submit, skip, viewWorked, next, exit }: { question: GameQuestion; index: number; runLength: number; streak: number; elapsed: number; timeAttack: boolean; muted: boolean; setMuted: (value: boolean) => void; input: string; setInput: (value: string) => void; error: string; phase: Phase; performance: Performance; submit: () => void; skip: () => void; viewWorked: () => void; next: () => void; exit: () => void }) {
