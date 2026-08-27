@@ -56,10 +56,13 @@ describe("enthalpy and decimal-place engine", () => {
   it("requires 1 dp for fractional non-integer products", () => expect(requiredDecimalPlaces([parseDeltaH("-285")], [Rational.parse("1/2")])).toBe(1));
   it("does not add dp for exact integer division", () => expect(requiredDecimalPlaces([parseDeltaH("-300")], [Rational.parse("1/2")])).toBe(0));
   it("rounds only the final rational", () => expect(roundRational(new Rational(-286, 3), 1)).toBe("−95.3"));
-  it("checks strict decimal-place representation", () => {
-    const answer = new Rational(-953, 10);
-    expect(checkExamAnswer("-95.3", answer, 1)).toBe(true);
-    expect(checkExamAnswer("-95.30", answer, 1)).toBe(false);
-    expect(checkExamAnswer("-95", answer, 1)).toBe(false);
-  });
+  it.each([
+    ["204", "204", 1, true], ["204.0", "204", 1, true], ["204.00", "204", 1, false], ["203", "204", 1, false], ["204.1", "204", 1, false],
+    ["204", "204", 2, true], ["204.0", "204", 2, true], ["204.00", "204", 2, true], ["204.000", "204", 2, false], ["204.01", "204", 2, false],
+    ["204.5", "409/2", 2, true], ["204.50", "409/2", 2, true], ["204", "409/2", 2, false], ["204.500", "409/2", 2, false], ["204.05", "409/2", 2, false],
+    ["204.05", "4081/20", 2, true], ["204", "4081/20", 2, false], ["204.0", "4081/20", 2, false], ["204.050", "4081/20", 2, false],
+    ["-95.3", "-953/10", 2, true], ["-95.30", "-953/10", 2, true], ["-95", "-953/10", 2, false], ["-95.300", "-953/10", 2, false], ["95.3", "-953/10", 2, false],
+    ["249.7", "2497/10", 1, true], ["250", "2497/10", 1, false], ["249", "2497/10", 1, false], ["249.70", "2497/10", 1, false],
+    ["204", "204", 0, true], ["204.0", "204", 0, false], ["204.00", "204", 0, false],
+  ])("checks controlled representation %s for %s at %i dp", (input, value, dp, accepted) => expect(checkExamAnswer(input as string, Rational.parse(value as string), dp as number)).toBe(accepted));
 });

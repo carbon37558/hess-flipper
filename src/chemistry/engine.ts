@@ -220,8 +220,15 @@ export const roundRational = (value: Rational, dp: number) => {
 
 export const checkExamAnswer = (input: string, answer: Rational, dp: number) => {
   const normalized = input.trim().replace("−", "-");
-  const pattern = dp ? new RegExp(`^-?\\d+\\.\\d{${dp}}$`) : /^-?\d+$/;
-  return pattern.test(normalized) && normalized.replace("-", "−") === roundRational(answer, dp);
+  const canonical = roundRational(answer, dp).replace("−", "-");
+  if (!/^-?\d+(?:\.\d+)?$/.test(normalized) || normalized.split(".")[1]?.length > dp) return false;
+  let accepted = canonical;
+  while (accepted.endsWith("0") && accepted.includes(".")) {
+    accepted = accepted.slice(0, -1);
+    if (accepted.endsWith(".")) accepted = accepted.slice(0, -1);
+    if (normalized === accepted) return true;
+  }
+  return normalized === canonical;
 };
 
 export const parseFormulaAtoms = (species: Species): Map<string, bigint> => {

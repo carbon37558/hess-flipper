@@ -28,9 +28,10 @@ describe("exam scoring and submissions", () => {
   it.each(["-12.3", "−12.3", "+12.3", "0"])("accepts %j as numeric", (input) => expect(isValidExamInput(input)).toBe(true));
   it("does not count invalid input as an attempt", () => expect(evaluateExamSubmission("", new Rational(-10), 1, 2)).toEqual({ kind: "invalid", attempts: 2 }));
   it("counts a valid incorrect input", () => expect(evaluateExamSubmission("-9.0", new Rational(-10), 1, 2)).toEqual({ kind: "incorrect", attempts: 3 }));
-  it("requires the configured decimal places", () => {
-    expect(evaluateExamSubmission("-10", new Rational(-10), 1, 0).kind).toBe("incorrect");
-    expect(evaluateExamSubmission("-10.0", new Rational(-10), 1, 0)).toEqual({ kind: "correct", attempts: 1 });
+  it("accepts an omitted trailing zero as a first-attempt correct answer", () => {
+    const submission = evaluateExamSubmission("-10", new Rational(-10), 1, 0);
+    expect(submission).toEqual({ kind: "correct", attempts: 1 });
+    expect(examStarsFor(submission.attempts)).toBe(3);
   });
   it("unlocks mastery only for a perfect ten-question hard exam", () => {
     const setup = { difficulty: "Hard" as const, mode: "Exam" as const, length: 10 as const, timeAttack: false };

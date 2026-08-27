@@ -16,6 +16,7 @@ describe("exam screen", () => {
     expect(html).toContain("SUBMIT");
     expect(html).toContain("SKIP");
     expect(html).not.toMatch(/FLIP|SCALE|HINT|CURRENT RESULT|UNDO|RESET|VIEW WORKED SOLUTION/);
+    expect(html).toContain("trailing zeros may be omitted");
   });
   it("reveals worked-solution navigation only after a correct answer", () => {
     const html = renderExam("result", 2);
