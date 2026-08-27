@@ -1,12 +1,33 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import questions from "./generated/questions.json";
-import { enthalpyCalculation, ExamQuestionScreen } from "./App";
+import { enthalpyCalculation, ExamQuestionScreen, Home } from "./App";
 import { initialPerformance } from "./game";
 import type { GameQuestion } from "./chemistry/engine";
 
 const question = questions[0] as GameQuestion;
 const renderExam = (phase: "working" | "result" | "skipped", attempts = 0, error = "") => renderToStaticMarkup(<ExamQuestionScreen question={question} index={0} runLength={5} streak={2} elapsed={0} timeAttack={false} muted={true} setMuted={vi.fn()} input="" setInput={vi.fn()} error={error} phase={phase} performance={{ ...initialPerformance(), examAttempts: attempts }} submit={vi.fn()} skip={vi.fn()} viewWorked={vi.fn()} next={vi.fn()} exit={vi.fn()} />);
+const renderHome = (muted = false) => renderToStaticMarkup(<Home setup={{ difficulty: "Mixed", mode: "Puzzle", length: 5, timeAttack: false }} setSetup={vi.fn()} start={vi.fn()} muted={muted} setMuted={vi.fn()} />);
+
+describe("homepage presentation", () => {
+  it("shows the refined branding and creator footer without developer metadata", () => {
+    const html = renderHome();
+    expect(html).toContain("HESS FLIPPER");
+    expect(html).not.toContain("CHEMISTRY ALGEBRA PUZZLE");
+    expect(html).not.toContain("solver-validated puzzles");
+    expect(html).toContain("© 2026 Adam SUN");
+    expect(html).toContain("WeChat: carbon37558");
+    expect(html).toContain('href="mailto:adam51538@hotmail.com"');
+    expect(html).toContain("No login · Progress stays on this device");
+  });
+  it("renders accessible inline SVG controls for both sound states", () => {
+    expect(renderHome()).toContain('aria-label="Turn sound off"');
+    expect(renderHome()).toContain("SOUND ON");
+    expect(renderHome(true)).toContain('aria-label="Turn sound on"');
+    expect(renderHome(true)).toContain("SOUND OFF");
+    expect(renderHome()).toContain("<svg");
+  });
+});
 
 describe("exam screen", () => {
   it("shows only static givens and final-answer actions while working", () => {
