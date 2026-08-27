@@ -2,6 +2,8 @@
 
 An adult-friendly Hess's Law chemistry puzzle: **flip → scale → add → cancel → match**.
 
+Play the production build at [hess-flipper.pages.dev](https://hess-flipper.pages.dev/).
+
 ## Development
 
 Requires Node.js 22 or newer.
