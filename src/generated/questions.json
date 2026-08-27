@@ -1,0 +1,1046 @@
+[
+  {
+    "questionId": "HF002",
+    "difficulty": "Medium",
+    "target": "2 C(s) + 2 H2(g) -> C2H4(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-393.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-285.8"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "C2H4(g) + 3 O2(g) -> 2 CO2(g) + 2 H2O(l)",
+        "deltaH": "-1411.0"
+      }
+    ],
+    "solution": [
+      "2",
+      "2",
+      "-1"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "52.4",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF003",
+    "difficulty": "Medium",
+    "target": "2 N2(g) + 6 H2(g) -> 4 NH3(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "4 NH3(g) + 3 O2(g) -> 2 N2(g) + 6 H2O(l)",
+        "deltaH": "-1530"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-288"
+      }
+    ],
+    "solution": [
+      "-1",
+      "6"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−198",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF004",
+    "difficulty": "Easy",
+    "target": "4 FeO(s) + O2(g) -> 2 Fe2O3(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 Fe(s) + O2(g) -> 2 FeO(s)",
+        "deltaH": "-544"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "4 Fe(s) + 3 O2(g) -> 2 Fe2O3(s)",
+        "deltaH": "-1648"
+      }
+    ],
+    "solution": [
+      "-2",
+      "1"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−560",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF005",
+    "difficulty": "Easy",
+    "target": "N2(g) + 2 O2(g) -> 2 NO2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "N2(g) + O2(g) -> 2 NO(g)",
+        "deltaH": "180"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 NO2(g) -> 2 NO(g) + O2(g)",
+        "deltaH": "112"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "68",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF006",
+    "difficulty": "Medium",
+    "target": "C(graphite) + 2 S(rhombic) -> CS2(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(graphite) + O2(g) -> CO2(g)",
+        "deltaH": "-393.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "S(rhombic) + O2(g) -> SO2(g)",
+        "deltaH": "-296.1"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "CS2(l) + 3 O2(g) -> CO2(g) + 2 SO2(g)",
+        "deltaH": "-1072"
+      }
+    ],
+    "solution": [
+      "1",
+      "2",
+      "-1"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "86.3",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF007",
+    "difficulty": "Medium",
+    "target": "PCl5(g) -> PCl3(g) + Cl2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "P4(s) + 6 Cl2(g) -> 4 PCl3(g)",
+        "deltaH": "-2438"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "4 PCl5(g) -> P4(s) + 10 Cl2(g)",
+        "deltaH": "3438"
+      }
+    ],
+    "solution": [
+      "1/4",
+      "1/4"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "250.0",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF008",
+    "difficulty": "Hard",
+    "target": "C3H8(g) + 5 O2(g) -> 3 CO2(g) + 4 H2O(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-394"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(g)",
+        "deltaH": "-242"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "3 C(s) + 4 H2(g) -> C3H8(g)",
+        "deltaH": "-104"
+      }
+    ],
+    "solution": [
+      "3",
+      "4",
+      "-1"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−2046",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF009",
+    "difficulty": "Hard",
+    "target": "3 C(s) + 4 H2(g) -> C3H8(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-286"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C3H8(g) + 5 O2(g) -> 3 CO2(g) + 4 H2O(l)",
+        "deltaH": "-2219"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-394"
+      }
+    ],
+    "solution": [
+      "4",
+      "-1",
+      "3"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−107",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF010",
+    "difficulty": "Medium",
+    "target": "1/8 S8(s) + Cl2(g) -> SCl2(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "S8(s) + 4 Cl2(g) -> 4 S2Cl2(l)",
+        "deltaH": "-58.2"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "S2Cl2(l) + Cl2(g) -> 2 SCl2(l)",
+        "deltaH": "-40.6"
+      }
+    ],
+    "solution": [
+      "1/8",
+      "1/2"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−27.6",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF011",
+    "difficulty": "Hard",
+    "target": "NH3(g) + 2 O2(g) -> HNO3(g) + H2O(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "4 NH3(g) + 5 O2(g) -> 4 NO(g) + 6 H2O(l)",
+        "deltaH": "-904"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 NO(g) + O2(g) -> 2 NO2(g)",
+        "deltaH": "-114"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "4 NO2(g) + O2(g) + 2 H2O(l) -> 4 HNO3(g)",
+        "deltaH": "-348"
+      }
+    ],
+    "solution": [
+      "1/4",
+      "1/2",
+      "1/4"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−370",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF012",
+    "difficulty": "Medium",
+    "target": "H2O(l) -> H2O(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 H2(g) + O2(g) -> 2 H2O(l)",
+        "deltaH": "-572"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 H2(g) + O2(g) -> 2 H2O(g)",
+        "deltaH": "-484"
+      }
+    ],
+    "solution": [
+      "-1/2",
+      "1/2"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "44",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF013",
+    "difficulty": "Hard",
+    "target": "C2H4(g) + H2O(g) -> C2H5OH(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "H2O(l) -> H2O(g)",
+        "deltaH": "44"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C2H5OH(l) + 3 O2(g) -> 2 CO2(g) + 3 H2O(l)",
+        "deltaH": "-1371"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "C2H4(g) + 3 O2(g) -> 2 CO2(g) + 2 H2O(l)",
+        "deltaH": "-1409"
+      }
+    ],
+    "solution": [
+      "-1",
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−82",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF014",
+    "difficulty": "Hard",
+    "target": "2 CO2(g) + H2O(g) -> C2H2(g) + 5/2 O2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C2H2(g) + 2 H2(g) -> C2H6(g)",
+        "deltaH": "-94.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2O(g) -> H2(g) + 1/2 O2(g)",
+        "deltaH": "71.2"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "C2H6(g) + 7/2 O2(g) -> 2 CO2(g) + 3 H2O(g)",
+        "deltaH": "-283"
+      }
+    ],
+    "solution": [
+      "-1",
+      "-2",
+      "-1"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "235.1",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF015",
+    "difficulty": "Hard",
+    "target": "N2H4(l) + H2(g) -> 2 NH3(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "N2H4(l) + CH4O(l) -> CH2O(g) + N2(g) + 3 H2(g)",
+        "deltaH": "-37"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "N2(g) + 3 H2(g) -> 2 NH3(g)",
+        "deltaH": "-46"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "CH4O(l) -> CH2O(g) + H2(g)",
+        "deltaH": "-65"
+      }
+    ],
+    "solution": [
+      "1",
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−18",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF016",
+    "difficulty": "Hard",
+    "target": "H2SO4(l) -> SO3(g) + H2O(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "H2S(g) + 2 O2(g) -> H2SO4(l)",
+        "deltaH": "-235.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2S(g) + 2 O2(g) -> SO3(g) + H2O(l)",
+        "deltaH": "-207"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "H2O(l) -> H2O(g)",
+        "deltaH": "44"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "72.5",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF017",
+    "difficulty": "Medium",
+    "target": "2 C2H4O(l) + 2 H2O(l) -> 2 C2H6O(l) + O2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C2H6O(l) + 3 O2(g) -> 2 CO2(g) + 3 H2O(l)",
+        "deltaH": "-685.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C2H4O(l) + 5/2 O2(g) -> 2 CO2(g) + 2 H2O(l)",
+        "deltaH": "-583.5"
+      }
+    ],
+    "solution": [
+      "-2",
+      "2"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "204.0",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF018",
+    "difficulty": "Medium",
+    "target": "2 CO(g) + O2(g) -> 2 CO2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 C(s) + O2(g) -> 2 CO(g)",
+        "deltaH": "-222"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-394"
+      }
+    ],
+    "solution": [
+      "-1",
+      "2"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−566",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF019",
+    "difficulty": "Easy",
+    "target": "C(graphite) -> C(diamond)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(diamond) + O2(g) -> CO2(g)",
+        "deltaH": "-395.4"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C(graphite) + O2(g) -> CO2(g)",
+        "deltaH": "-393.5"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "1.9",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF020",
+    "difficulty": "Hard",
+    "target": "C2H2(g) + 5/2 O2(g) -> 2 CO2(g) + H2O(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-390"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-290"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "2 C(s) + H2(g) -> C2H2(g)",
+        "deltaH": "230"
+      }
+    ],
+    "solution": [
+      "2",
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−1300",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF021",
+    "difficulty": "Hard",
+    "target": "1/2 H2(g) + 1/2 Cl2(g) -> HCl(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Cl2(g) -> 2 Cl(g)",
+        "deltaH": "242"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + Cl(g) -> HCl(g) + H(g)",
+        "deltaH": "4"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "H(g) + Cl(g) -> HCl(g)",
+        "deltaH": "-432"
+      }
+    ],
+    "solution": [
+      "1/2",
+      "1/2",
+      "1/2"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−93",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF022",
+    "difficulty": "Medium",
+    "target": "2 NaHCO3(s) -> Na2CO3(s) + H2O(l) + CO2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Na2CO3(s) + 2 HCl(aq) -> 2 NaCl(aq) + H2O(l) + CO2(g)",
+        "deltaH": "-34.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "NaHCO3(s) + HCl(aq) -> NaCl(aq) + H2O(l) + CO2(g)",
+        "deltaH": "27.2"
+      }
+    ],
+    "solution": [
+      "-1",
+      "2"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "88.9",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF023",
+    "difficulty": "Easy",
+    "target": "P4(s) + 3 O2(g) -> P4O6(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "P4O6(s) + 2 O2(g) -> P4O10(s)",
+        "deltaH": "-1372"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "P4(s) + 5 O2(g) -> P4O10(s)",
+        "deltaH": "-3012"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−1640",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF024",
+    "difficulty": "Medium",
+    "target": "Fe2O3(s) + 3 CO(g) -> 2 Fe(s) + 3 CO2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Fe2O3(s) + CO(g) -> 2 FeO(s) + CO2(g)",
+        "deltaH": "-3"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "Fe(s) + CO2(g) -> FeO(s) + CO(g)",
+        "deltaH": "11"
+      }
+    ],
+    "solution": [
+      "1",
+      "-2"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−25",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF025",
+    "difficulty": "Medium",
+    "target": "BrF(g) + F2(g) -> BrF3(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Br2(l) + F2(g) -> 2 BrF(g)",
+        "deltaH": "-188"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "Br2(l) + 3 F2(g) -> 2 BrF3(g)",
+        "deltaH": "-2272"
+      }
+    ],
+    "solution": [
+      "-1/2",
+      "1/2"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−1042",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF026",
+    "difficulty": "Easy",
+    "target": "2 C(s) + H2(g) -> C2H2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 C(s) + 2 H2(g) -> C2H4(g)",
+        "deltaH": "52"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C2H2(g) + H2(g) -> C2H4(g)",
+        "deltaH": "-176"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "228",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF027",
+    "difficulty": "Easy",
+    "target": "C3H4(g) + H2(g) -> C3H6(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C3H4(g) + 2 H2(g) -> C3H8(g)",
+        "deltaH": "-290"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C3H6(g) + H2(g) -> C3H8(g)",
+        "deltaH": "-125"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−165",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF028",
+    "difficulty": "Hard",
+    "target": "2 C(s) + 3 H2(g) + 1/2 O2(g) -> C2H5OH(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(s) + O2(g) -> CO2(g)",
+        "deltaH": "-394"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-286"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "C2H5OH(l) + 3 O2(g) -> 2 CO2(g) + 3 H2O(l)",
+        "deltaH": "-1367"
+      }
+    ],
+    "solution": [
+      "2",
+      "3",
+      "-1"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−279",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF029",
+    "difficulty": "Hard",
+    "target": "CH4(g) + H2O(g) -> CO(g) + 3 H2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 C(graphite) + O2(g) -> 2 CO(g)",
+        "deltaH": "-222"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C(graphite) + 2 H2(g) -> CH4(g)",
+        "deltaH": "-74"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "2 H2(g) + O2(g) -> 2 H2O(g)",
+        "deltaH": "-484"
+      }
+    ],
+    "solution": [
+      "1/2",
+      "-1",
+      "-1/2"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "205",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF030",
+    "difficulty": "Hard",
+    "target": "3/2 O2(g) -> O3(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 CO2(g) -> 2 CO(g) + O2(g)",
+        "deltaH": "566"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "3 CO(g) + O3(g) -> 3 CO2(g)",
+        "deltaH": "-992"
+      }
+    ],
+    "solution": [
+      "-3/2",
+      "-1"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "143",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF031",
+    "difficulty": "Easy",
+    "target": "N2(g) + 1/2 O2(g) -> N2O(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "C(s) + N2O(g) -> CO(g) + N2(g)",
+        "deltaH": "-193"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C(s) + 1/2 O2(g) -> CO(g)",
+        "deltaH": "-111"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "82",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF032",
+    "difficulty": "Easy",
+    "target": "Fe(s) + 3/2 Cl2(g) -> FeCl3(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Fe(s) + Cl2(g) -> FeCl2(s)",
+        "deltaH": "-341.8"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 FeCl2(s) + Cl2(g) -> 2 FeCl3(s)",
+        "deltaH": "-115.4"
+      }
+    ],
+    "solution": [
+      "1",
+      "1/2"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−399.5",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF033",
+    "difficulty": "Hard",
+    "target": "2 H2O2(l) -> 2 H2O(l) + O2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "H2(g) + O2(g) -> H2O2(l)",
+        "deltaH": "-188"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(l)",
+        "deltaH": "-286"
+      }
+    ],
+    "solution": [
+      "-2",
+      "2"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−196",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF034",
+    "difficulty": "Easy",
+    "target": "WBr4(s) + Br2(l) -> WBr6(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "W(s) + 2 Br2(l) -> WBr4(s)",
+        "deltaH": "-146.7"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "W(s) + 3 Br2(l) -> WBr6(s)",
+        "deltaH": "-184.4"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−37.7",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF035",
+    "difficulty": "Medium",
+    "target": "CH4(g) + 2 O2(g) -> CO2(g) + 2 H2O(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "CH4(g) + 2 O2(g) -> CO2(g) + 2 H2O(g)",
+        "deltaH": "-900"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H2O(l) -> H2O(g)",
+        "deltaH": "44"
+      }
+    ],
+    "solution": [
+      "1",
+      "-2"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "−988",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF036",
+    "difficulty": "Hard",
+    "target": "CH4(g) + NH3(g) -> HCN(g) + 3 H2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "N2(g) + 3 H2(g) -> 2 NH3(g)",
+        "deltaH": "-91.8"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "C(s) + 2 H2(g) -> CH4(g)",
+        "deltaH": "-74.9"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "H2(g) + 2 C(s) + N2(g) -> 2 HCN(g)",
+        "deltaH": "270.3"
+      }
+    ],
+    "solution": [
+      "-1/2",
+      "-1",
+      "1/2"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "256.0",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF037",
+    "difficulty": "Easy",
+    "target": "NO(g) + 1/2 O2(g) -> NO2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "1/2 N2(g) + 1/2 O2(g) -> NO(g)",
+        "deltaH": "90"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "1/2 N2(g) + O2(g) -> NO2(g)",
+        "deltaH": "34"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−56",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF038",
+    "difficulty": "Hard",
+    "target": "H2(g) + O2(g) -> H2O2(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "H2(g) + 1/2 O2(g) -> H2O(g)",
+        "deltaH": "-241.82"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 H(g) + O(g) -> H2O(g)",
+        "deltaH": "-926.92"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "2 H(g) + 2 O(g) -> H2O2(g)",
+        "deltaH": "-1070.6"
+      },
+      {
+        "reactionNo": 4,
+        "equation": "2 O(g) -> O2(g)",
+        "deltaH": "-498.34"
+      },
+      {
+        "reactionNo": 5,
+        "equation": "H2O2(l) -> H2O2(g)",
+        "deltaH": "51.46"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1",
+      "1",
+      "-1/2",
+      "-1"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "−187.79",
+    "requiredDp": 2
+  },
+  {
+    "questionId": "HF039",
+    "difficulty": "Easy",
+    "target": "Cu(s) + 1/2 O2(g) -> CuO(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "CuO(s) + Cu(s) -> Cu2O(s)",
+        "deltaH": "-11"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 CuO(s) -> Cu2O(s) + 1/2 O2(g)",
+        "deltaH": "115"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−126",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF040",
+    "difficulty": "Hard",
+    "target": "4 NH3(g) + 5 O2(g) -> 4 NO(g) + 6 H2O(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "N2(g) + O2(g) -> 2 NO(g)",
+        "deltaH": "180.5"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "N2(g) + 3 H2(g) -> 2 NH3(g)",
+        "deltaH": "-91.8"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "2 H2(g) + O2(g) -> 2 H2O(g)",
+        "deltaH": "-483.6"
+      }
+    ],
+    "solution": [
+      "2",
+      "-2",
+      "3"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "−906.2",
+    "requiredDp": 1
+  }
+]
