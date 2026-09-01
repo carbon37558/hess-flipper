@@ -1,7 +1,7 @@
 [
   {
     "questionId": "HF002",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "target": "2 C(s) + 2 H2(g) -> C2H4(g)",
     "reactions": [
       {
@@ -55,7 +55,7 @@
   },
   {
     "questionId": "HF004",
-    "difficulty": "Easy",
+    "difficulty": "Medium",
     "target": "4 FeO(s) + O2(g) -> 2 Fe2O3(s)",
     "reactions": [
       {
@@ -271,7 +271,7 @@
   },
   {
     "questionId": "HF012",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "target": "H2O(l) -> H2O(g)",
     "reactions": [
       {
@@ -295,7 +295,7 @@
   },
   {
     "questionId": "HF013",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "target": "C2H4(g) + H2O(g) -> C2H5OH(l)",
     "reactions": [
       {
@@ -355,7 +355,7 @@
   },
   {
     "questionId": "HF015",
-    "difficulty": "Hard",
+    "difficulty": "Easy",
     "target": "N2H4(l) + H2(g) -> 2 NH3(g)",
     "reactions": [
       {
@@ -385,7 +385,7 @@
   },
   {
     "questionId": "HF016",
-    "difficulty": "Hard",
+    "difficulty": "Easy",
     "target": "H2SO4(l) -> SO3(g) + H2O(g)",
     "reactions": [
       {
@@ -415,7 +415,7 @@
   },
   {
     "questionId": "HF017",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "target": "2 C2H4O(l) + 2 H2O(l) -> 2 C2H6O(l) + O2(g)",
     "reactions": [
       {
@@ -487,7 +487,7 @@
   },
   {
     "questionId": "HF020",
-    "difficulty": "Hard",
+    "difficulty": "Medium",
     "target": "C2H2(g) + 5/2 O2(g) -> 2 CO2(g) + H2O(l)",
     "reactions": [
       {
@@ -619,7 +619,7 @@
   },
   {
     "questionId": "HF025",
-    "difficulty": "Medium",
+    "difficulty": "Hard",
     "target": "BrF(g) + F2(g) -> BrF3(g)",
     "reactions": [
       {
@@ -1042,5 +1042,149 @@
     "optimalMoves": 4,
     "finalDeltaH": "−906.2",
     "requiredDp": 1
+  },
+  {
+    "questionId": "HF041",
+    "difficulty": "Hard",
+    "target": "2 Al(s) + 3 Cl2(g) -> 2 AlCl3(s)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 Al(s) + 6 HCl(aq) -> 2 AlCl3(aq) + 3 H2(g)",
+        "deltaH": "-1049"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "HCl(g) -> HCl(aq)",
+        "deltaH": "-74.8"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "H2(g) + Cl2(g) -> 2 HCl(g)",
+        "deltaH": "-184.5"
+      },
+      {
+        "reactionNo": 4,
+        "equation": "AlCl3(s) -> AlCl3(aq)",
+        "deltaH": "-323"
+      }
+    ],
+    "solution": [
+      "1",
+      "6",
+      "3",
+      "-2"
+    ],
+    "optimalMoves": 4,
+    "finalDeltaH": "−1405.3",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF042",
+    "difficulty": "Easy",
+    "target": "PbCl2(s) + Cl2(g) -> PbCl4(l)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Pb(s) + 2 Cl2(g) -> PbCl4(l)",
+        "deltaH": "-393"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "Pb(s) + Cl2(g) -> PbCl2(s)",
+        "deltaH": "-359"
+      }
+    ],
+    "solution": [
+      "1",
+      "-1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "−34",
+    "requiredDp": 0
+  },
+  {
+    "questionId": "HF043",
+    "difficulty": "Medium",
+    "target": "Hg2Cl2(s) -> 2 Hg(l) + Cl2(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Hg(l) + Cl2(g) -> HgCl2(s)",
+        "deltaH": "-224"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "Hg(l) + HgCl2(s) -> Hg2Cl2(s)",
+        "deltaH": "-41.2"
+      }
+    ],
+    "solution": [
+      "-1",
+      "-1"
+    ],
+    "optimalMoves": 2,
+    "finalDeltaH": "265.2",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF044",
+    "difficulty": "Easy",
+    "target": "SiO2(s) + 3 C(graphite) -> SiC(s) + 2 CO(g)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "Si(s) + O2(g) -> SiO2(s)",
+        "deltaH": "-911"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "2 C(graphite) + O2(g) -> 2 CO(g)",
+        "deltaH": "-221"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "Si(s) + C(graphite) -> SiC(s)",
+        "deltaH": "-65.3"
+      }
+    ],
+    "solution": [
+      "-1",
+      "1",
+      "1"
+    ],
+    "optimalMoves": 1,
+    "finalDeltaH": "624.7",
+    "requiredDp": 1
+  },
+  {
+    "questionId": "HF045",
+    "difficulty": "Hard",
+    "target": "H2B4O7(s) + H2O(l) -> 4 HBO2(aq)",
+    "reactions": [
+      {
+        "reactionNo": 1,
+        "equation": "2 H3BO3(aq) -> B2O3(s) + 3 H2O(l)",
+        "deltaH": "14.4"
+      },
+      {
+        "reactionNo": 2,
+        "equation": "H3BO3(aq) -> HBO2(aq) + H2O(l)",
+        "deltaH": "-0.02"
+      },
+      {
+        "reactionNo": 3,
+        "equation": "H2B4O7(s) -> 2 B2O3(s) + H2O(l)",
+        "deltaH": "17.3"
+      }
+    ],
+    "solution": [
+      "-2",
+      "4",
+      "1"
+    ],
+    "optimalMoves": 3,
+    "finalDeltaH": "−11.58",
+    "requiredDp": 2
   }
 ]
