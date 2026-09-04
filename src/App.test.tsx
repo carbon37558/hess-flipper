@@ -16,10 +16,22 @@ describe("homepage presentation", () => {
     expect(html).toContain("HESS FLIPPER");
     expect(html).not.toContain("CHEMISTRY ALGEBRA PUZZLE");
     expect(html).not.toContain("solver-validated puzzles");
-    expect(html).toContain("© 2026 Adam SUN");
+    expect(html).toContain("© 2026");
     expect(html).toContain("WeChat: carbon37558");
     expect(html).toContain('href="mailto:adam51538@hotmail.com"');
     expect(html).toContain("No login · Progress stays on this device");
+  });
+  it("adds exactly two same-tab Lab links without duplicate attribution", () => {
+    const page = document.createElement("div");
+    page.innerHTML = renderHome();
+    const links = page.querySelectorAll('a[href="https://adams-lab.pages.dev/"]');
+    expect(links).toHaveLength(2);
+    expect(page.querySelector("nav .lab-return")?.textContent).toBe("← Adam's Lab");
+    expect(page.querySelector("footer")?.textContent).toContain("Made by Adam Sun · Adam's Lab");
+    expect(page.textContent?.match(/Adam Sun/gi)).toHaveLength(1);
+    links.forEach((link) => expect(link.hasAttribute("target")).toBe(false));
+    expect(page.querySelectorAll("nav")).toHaveLength(1);
+    expect(page.querySelectorAll("footer")).toHaveLength(1);
   });
   it("renders accessible inline SVG controls for both sound states", () => {
     expect(renderHome()).toContain('aria-label="Turn sound off"');
